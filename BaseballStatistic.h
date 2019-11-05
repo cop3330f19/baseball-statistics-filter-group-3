@@ -1,3 +1,9 @@
+//Name of the file: BaseballStatistic.h
+//Group number and member names: Jeffrey Washington, Shatoria Poole, Roderick Harris
+//Date last edited: 11/5/2019
+//Purpose of the program: Header file for BaseballStatistic.cpp
+
+
 #ifndef BASEBALL_STATISTIC_H
 #define BASEBALL_STATISTIC_H
 

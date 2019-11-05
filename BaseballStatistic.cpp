@@ -1,3 +1,9 @@
+//Name of the file: BaseballStatistic.cpp
+//Group number and member names: Jeffrey Washington, Shatoria Poole, Roderick Harris
+//Date last edited: 11/5/2019
+//Purpose of the program: Initializes all values for constructor and prints row.
+
+
 #include <iostream>
 #include <string>
 #include <fstream>

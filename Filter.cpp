@@ -1,3 +1,8 @@
+//Name of the file: Filter.cpp
+//Group number and member names: Jeffrey Washington, Shatoria Poole, Roderick Harris
+//Date last edited: 11/5/2019
+//Purpose of the program: Filters content of csv file.
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -10,7 +15,7 @@
 using namespace std;
 
 
-
+//Swap function
 
 void Filter::swap(vector<BaseballStatistic>& playerList, int oIdx, int nIdx){
     
@@ -19,7 +24,7 @@ void Filter::swap(vector<BaseballStatistic>& playerList, int oIdx, int nIdx){
     playerList[nIdx] = temp; //assign the element previously at the now sorted postion
 }
 
-
+//Will sort by last name
 
 void Filter::sort(vector<BaseballStatistic>& playerList){
     
@@ -36,11 +41,11 @@ void Filter::sort(vector<BaseballStatistic>& playerList){
         
         for (j = i+1; j < playerList.size(); j++) 
           if (
-            //  (playerList[j].getLastName().compare(playerList[min_idx].getLastName()) < 0) //if getLastName() @ j is < getLastName() @ min_idx
+              (playerList[j].getLastName().compare(playerList[min_idx].getLastName()) < 0) //if getLastName() @ j is < getLastName() @ min_idx
               
-             // || (playerList[j].getLastName().compare(playerList[min_idx].getLastName()) == 0 && playerList[j].getFirstName().compare(playerList[min_idx].getFirstName() ) < 0) //getLastName()s are equal and getFirstName() @ j is < getFirstName() @ min_idx
+              || (playerList[j].getLastName().compare(playerList[min_idx].getLastName()) == 0 && playerList[j].getFirstName().compare(playerList[min_idx].getFirstName() ) < 0) //getLastName()s are equal and getFirstName() @ j is < getFirstName() @ min_idx
               
-               (playerList[j].getLastName().compare(playerList[min_idx].getLastName()) == 0 && playerList[j].getFirstName().compare(playerList[min_idx].getFirstName()) == 0 && playerList[j].getTeamName() < playerList[min_idx].getTeamName() ) // getLastName()s and getFirstName()s are equal and getTeamName() @ j is < getTeamName() @ min_idx
+            ||   (playerList[j].getLastName().compare(playerList[min_idx].getLastName()) == 0 && playerList[j].getFirstName().compare(playerList[min_idx].getFirstName()) == 0 && playerList[j].getTeamName() < playerList[min_idx].getTeamName() ) // getLastName()s and getFirstName()s are equal and getTeamName() @ j is < getTeamName() @ min_idx
               )
             min_idx = j; 
       

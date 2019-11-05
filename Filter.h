@@ -1,3 +1,7 @@
+//Name of the file: Filter.h
+//Group number and member names: Jeffrey Washington, Shatoria Poole, Roderick Harris
+//Date last edited: 11/5/2019
+//Purpose of the program: Header file
 
 #ifndef FILTER
 #define FILTER
@@ -16,5 +20,6 @@ class Filter{
         int searchByTeamAndJersey (std::vector<BaseballStatistic>, std::string, int);
 
 };
+
 
 #endif
