@@ -4,6 +4,7 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <sstream>
 
 #include "BaseballStatistic.h"
 #include "Filter.h"
@@ -14,6 +15,8 @@ using namespace std;
 
 void loadFile (vector<BaseballStatistic> &);
 
+Filter processor;
+
 
 int main(){
 
@@ -23,29 +26,96 @@ int main(){
 	double batAvg, opss, eraa;
 
     vector <BaseballStatistic> test1;
-    Filter processor;
-
+    
     loadFile(test1);
-
-    for(int i = 0; i < 100; i++){
-        test1[i].print();
+    processor.sort(test1);
+    
+   for(int i = 0; i < test1.size(); i++){
+       test1[i].print();
     }
-
+  
     return 0;
 }
 
 void loadFile(vector<BaseballStatistic>& playerList){
 	ifstream in;
-	in.open("stats.txt");
+	in.open("BStats.csv");
+        if(!in)
+            cout << "File wont open" << endl;
 	
-	string fname, lname, teamName, position;
+	string fname, lname, teamName, position, line;
     int jerseyNumber, atBat, homeRun, runsBattedIn, sB, year, month, day;
     char bat, thrower;
 	double batAvg, opss, eraa;
+    
+    int cnt;
 	
-	while (in >> teamName >> jerseyNumber >> lname >> fname >> year >> month >> day >> bat >> thrower >> atBat >> batAvg >> homeRun >> runsBattedIn >> sB >> opss >> eraa >> position){
-	    BaseballStatistic temp (fname, lname, teamName, jerseyNumber, position, atBat, homeRun, runsBattedIn, bat, thrower, sB, batAvg, year, month, day, opss, eraa);
-		playerList.push_back(temp);
-	}
+	while(in.good())
+    {
+       //use line string variable to read in value
+        getline(in, line, ',');
+       //set read in value to corresponding variable
+       teamName = line;
+        getline(in, line,',');
+       //convert the string to an int
+       stringstream geek1(line);
+       //set converted variable to corresponding variable 
+       geek1 >> jerseyNumber;
+        getline(in, line, ',');
+       fname = line;
+        getline(in, line, ',');
+       lname = line;
+        getline(in, line, ',');
+       stringstream geek2(line);
+       geek2 >> year;
+        getline(in, line, ',');
+       stringstream geek3(line);
+       geek3 >> month;
+        getline(in, line, ',');
+       stringstream geek4(line);
+       geek4 >> day;
+        getline(in, line, ',');
+       //create a char variable of the same length of the read in variable
+       char p[line.length()];
+       //set the line char variable to the read in variable
+       p[0] = line[0];
+       //set the line char variable to the corresponding variable
+       bat = p[0];
+        getline(in, line, ',');
+       p[0] = line[0];
+       thrower = p[0];
+        getline(in, line, ',');
+       stringstream geek5(line);
+       geek5 >> atBat;
+        getline(in, line, ',');
+       stringstream geek6(line);
+       geek6 >> batAvg;
+        getline(in, line, ',');
+       stringstream geek7(line);
+       geek7 >> homeRun;
+        getline(in, line, ',');
+       stringstream geek8(line);
+       geek8 >> runsBattedIn;
+        getline(in, line, ',');
+       stringstream geek9(line);
+       geek9 >> sB;
+        getline(in, line, ',');
+       stringstream geek10(line);
+       geek10 >> opss;
+        getline(in, line, ',');
+       stringstream geek11(line);
+       geek11 >> eraa;
+        getline(in, line);
+       position = line;
+ 
+       BaseballStatistic temp (fname, lname, teamName, jerseyNumber, position, atBat, homeRun, runsBattedIn, bat, thrower, sB, batAvg, year, month, day, opss, eraa);
+       //add that new object to the vector
+       playerList.push_back(temp);
+               
+    }
     in.close();
 }
+
+
+
+//in >> teamName >> jerseyNumber >> lname >> fname >> year >> month >> day >> bat >> thrower >> atBat >> batAvg >> homeRun >> runsBattedIn >> sB >> opss >> eraa >> position

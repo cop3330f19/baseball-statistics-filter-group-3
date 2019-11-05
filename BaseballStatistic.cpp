@@ -154,5 +154,5 @@ double BaseballStatistic::getERA()const{
 //Print function
 
 void BaseballStatistic::print()const{
-   cout << getLastName() << " " << getFirstName() << " " << dob->getDay() << " " << endl;
+   cout << lastName << " " << dob->getYear() << endl;
 }
