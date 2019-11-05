@@ -15,7 +15,7 @@ using namespace std;
 
 void loadFile (vector<BaseballStatistic> &);
 
-Filter processor;
+//Filter processor;
 
 
 int main(){
@@ -26,14 +26,21 @@ int main(){
 	double batAvg, opss, eraa;
 
     vector <BaseballStatistic> test1;
+    Filter processor;
+    
+    teamName = "Marlins";
+    jerseyNumber = 50;
+    
     
     loadFile(test1);
     processor.sort(test1);
     
-   for(int i = 0; i < test1.size(); i++){
-       test1[i].print();
-    }
-  
+    int n = processor.searchByTeamName(test1, teamName);
+    if (n != 0){
+    for (int x = 0; x < test1.size(); x++){
+               test1[x].print();
+    
+  }}
     return 0;
 }
 

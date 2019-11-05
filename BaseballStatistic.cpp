@@ -2,6 +2,8 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include <iomanip>
+
 
 #include "BaseballStatistic.h"
 #include "Date.h"
@@ -132,7 +134,7 @@ double BaseballStatistic::getBattingAverage()const{
 }
 
 int BaseballStatistic::getHR()const{
-    return hr;
+    return hr; 
 }
 
 int BaseballStatistic::getRBI()const{
@@ -149,10 +151,10 @@ double BaseballStatistic::getOPS()const{
 
 double BaseballStatistic::getERA()const{
     return era;
-}
+}    
 
 //Print function
 
 void BaseballStatistic::print()const{
-   cout << lastName << " " << dob->getYear() << endl;
+   cout << left << lastName << ',' << firstName << right << setw(10) << teamName << right << setw(10) << jerseyNum << " " << dob->getDate() << " " << dob->getAge() << " " << batting << " " << throwing << " " << atBats << " " << battingAverage << " " << hr << " " << rbi << " " << sb << " " << ops << " " << era << " " << position <<  endl;
 }

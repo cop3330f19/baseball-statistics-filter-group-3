@@ -1,3 +1,4 @@
+
 #ifndef FILTER
 #define FILTER
 
@@ -11,8 +12,9 @@ class Filter{
 
         void swap (std::vector<BaseballStatistic> &, int, int);
         void sort (std::vector<BaseballStatistic> &);
-        int searchByNameAndPosition (std::vector<BaseballStatistic>, std::string, std::string);
-};
+        int searchByTeamName (std::vector<BaseballStatistic>, std::string);
+        int searchByTeamAndJersey (std::vector<BaseballStatistic>, std::string, int);
 
+};
 
 #endif

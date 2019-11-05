@@ -36,11 +36,11 @@ void Filter::sort(vector<BaseballStatistic>& playerList){
         
         for (j = i+1; j < playerList.size(); j++) 
           if (
-              (playerList[j].getLastName().compare(playerList[min_idx].getLastName()) < 0) //if getLastName() @ j is < getLastName() @ min_idx
+            //  (playerList[j].getLastName().compare(playerList[min_idx].getLastName()) < 0) //if getLastName() @ j is < getLastName() @ min_idx
               
-              || (playerList[j].getLastName().compare(playerList[min_idx].getLastName()) == 0 && playerList[j].getFirstName().compare(playerList[min_idx].getFirstName() ) < 0) //getLastName()s are equal and getFirstName() @ j is < getFirstName() @ min_idx
+             // || (playerList[j].getLastName().compare(playerList[min_idx].getLastName()) == 0 && playerList[j].getFirstName().compare(playerList[min_idx].getFirstName() ) < 0) //getLastName()s are equal and getFirstName() @ j is < getFirstName() @ min_idx
               
-              || (playerList[j].getLastName().compare(playerList[min_idx].getLastName()) == 0 && playerList[j].getFirstName().compare(playerList[min_idx].getFirstName()) == 0 && playerList[j].getTeamName() < playerList[min_idx].getTeamName() ) // getLastName()s and getFirstName()s are equal and getTeamName() @ j is < getTeamName() @ min_idx
+               (playerList[j].getLastName().compare(playerList[min_idx].getLastName()) == 0 && playerList[j].getFirstName().compare(playerList[min_idx].getFirstName()) == 0 && playerList[j].getTeamName() < playerList[min_idx].getTeamName() ) // getLastName()s and getFirstName()s are equal and getTeamName() @ j is < getTeamName() @ min_idx
               )
             min_idx = j; 
       
@@ -52,7 +52,7 @@ void Filter::sort(vector<BaseballStatistic>& playerList){
 }
 
 
-int Filter::searchByNameAndPosition(vector<BaseballStatistic> BaseballStatistics, string lname, string position){
+int Filter::searchByTeamName(vector<BaseballStatistic> BaseballStatistics, string tname){
   
   int lo = 0;
   int hi = BaseballStatistics.size();
@@ -62,12 +62,11 @@ int Filter::searchByNameAndPosition(vector<BaseballStatistic> BaseballStatistics
         int location = lo + (hi-lo)/2; 
   
         // Check if name is present at mid 
-        if (BaseballStatistics[location].getLastName() == lname && BaseballStatistics[location].getPosition() == position) 
+        if (BaseballStatistics[location].getLastName() == tname) 
             return location; 
   
         // If name greater, ignore left half 
-        if (BaseballStatistics[location].getLastName() < lname 
-			|| (BaseballStatistics[location].getLastName() == lname && BaseballStatistics[location].getPosition() < position)) 
+        if ((BaseballStatistics[location].getLastName() < tname) || (BaseballStatistics[location].getLastName() == tname)) 
             lo = location + 1; 
   
         // If name is smaller, ignore right half 
@@ -79,3 +78,35 @@ int Filter::searchByNameAndPosition(vector<BaseballStatistic> BaseballStatistics
     return -1; 
  
 }
+
+int Filter::searchByTeamAndJersey(vector<BaseballStatistic> BaseballStatistics, string teamName, int jerseyNumber){
+    
+      int lo = 0;
+  int hi = BaseballStatistics.size();
+  
+   while (lo <= hi) 
+    { 
+        int location = lo + (hi-lo)/2; 
+  
+        // Check if name is present at mid 
+        if (BaseballStatistics[location].getTeamName() == teamName) 
+            return location; 
+  
+        // If name greater, ignore left half 
+        if ((BaseballStatistics[location].getTeamName() < teamName) 
+			|| (BaseballStatistics[location].getTeamName() == teamName ) )
+            lo = location + 1; 
+  
+        // If name is smaller, ignore right half 
+        else
+            hi = location - 1; 
+    } 
+  
+    // if we reach here, then element was not present 
+    return -1; 
+    
+}
+
+
+// && BaseballStatistics[location].getJerseyNum() == jerseyNumber
+// && BaseballStatistics[location].getJerseyNum() < jerseyNumber)
