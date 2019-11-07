@@ -10,16 +10,13 @@
 #include <string>
 #include "BaseballStatistic.h"
 
-
-class Filter{
-    public:
-
-        void swap (std::vector<BaseballStatistic> &, int, int);
-        void sort (std::vector<BaseballStatistic> &);
-        int searchByTeamName (std::vector<BaseballStatistic>, std::string);
-        int searchByTeamAndJersey (std::vector<BaseballStatistic>, std::string, int);
-
+class Filter
+{
+public:
+    void swap(std::vector<BaseballStatistic> &, int, int);
+    void sort(std::vector<BaseballStatistic> &);
+    void sort2(std::vector<BaseballStatistic> &);
+    static std::vector<BaseballStatistic> search(std::vector<BaseballStatistic> &, std::string, std::string);
 };
-
 
 #endif
