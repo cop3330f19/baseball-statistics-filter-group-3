@@ -35,6 +35,7 @@ int main()
 
     //Creation of objects and object mutators
     vector<BaseballStatistic> test1;
+    loadFile(test1);
     Filter processor;
     string key, filter;
 
@@ -60,75 +61,106 @@ int main()
     cout << "**************************" << endl;
 
     vector<BaseballStatistic> result = test1;
-
-    do
-    {
-        cout << "Enter all filter key pairs you would like to use (enter 'F F' when finished): " << endl;
-        cin >> filter >> key;
-        StringHelper::toUpper(filter);
-        if (filter != "F" && filter != "T" && filter != "P" && filter != "B" && filter != "BA" && filter != "H" && filter != "R" && filter != "S" && filter != "O" && filter != "E")
-        {
-            cout << "Invalid input! Please select from the filter options or enter"
-                 << "F F"
-                 << "to end filter options." << endl;
-        }
-        else if (filter != "F" && filter != "f")
-        {
-            result = Filter::search(result, filter, key);
-        }
-    } while (filter != "F" && filter != "f");
-
-    cout << "*********SORTING OPTIONS*********" << endl;
-    cout << "* 1 - By Player Name & Position *" << endl;
-    cout << "* 2 - By Team & Jersey Number   *" << endl;
-    cout << "* 3 - None                      *" << endl;
-    cout << "*********************************" << endl;
-
-    int input;
-    bool inputTest = false;
-
     char choice;
+    bool yesOrNo = true;
 
-    while (!inputTest)
+    while (yesOrNo)
     {
-
-        cin >> input;
-
-        if (input == 1)
+        do
         {
-            inputTest = true;
-            processor.sort(result);
-            for (int x = 0; x < result.size(); x++)
+            cout << "Enter all filter key pairs you would like to use (enter 'F F' when finished): " << endl;
+            cin >> filter >> key;
+            StringHelper::toUpper(filter);
+            if (filter != "F" && filter != "T" && filter != "P" && filter != "B" && filter != "BA" && filter != "H" && filter != "R" && filter != "S" && filter != "O" && filter != "E")
             {
-                result[x].print();
+                cout << "Invalid input! Please select from the filter options or enter"
+                     << "F F"
+                     << "to end filter options." << endl;
+            }
+            else if (filter != "F" && filter != "f")
+            {
+                result = Filter::search(result, filter, key);
+            }
+        } while (filter != "F" && filter != "f");
+
+        cout << "*********SORTING OPTIONS*********" << endl;
+        cout << "* 1 - By Player Name & Position *" << endl;
+        cout << "* 2 - By Team & Jersey Number   *" << endl;
+        cout << "* 3 - None                      *" << endl;
+        cout << "*********************************" << endl;
+
+        int input;
+        bool inputTest = false;
+
+        while (!inputTest)
+        {
+
+            cin >> input;
+
+            if (input == 1)
+            {
+                inputTest = true;
+                processor.sort(result);
+                for (int x = 0; x < result.size(); x++)
+                {
+                    result[x].print();
+                }
+            }
+
+            else if (input == 2)
+            {
+                inputTest = true;
+                processor.sort2(result);
+                for (int x = 0; x < result.size(); x++)
+                {
+                    result[x].print();
+                }
+            }
+
+            else if (input == 3)
+            {
+                inputTest = true;
+                for (int x = 0; x < result.size(); x++)
+                {
+                    result[x].print();
+                }
+            }
+
+            else
+            {
+                cout << "Invalid input try again" << endl;
             }
         }
 
-        else if (input == 2)
-        {
-            inputTest = true;
-            processor.sort2(result);
-            for (int x = 0; x < result.size(); x++)
-            {
-                result[x].print();
-            }
-        }
+        bool choiceTest2 = true;
 
-        else if (input == 3)
+        while (choiceTest2)
         {
-            inputTest = true;
-            for (int x = 0; x < result.size(); x++)
-            {
-                result[x].print();
-            }
-        }
+            cout << "Would you like to do another filter (Y/N)? " << endl;
+            cin >> choice;
 
-        else
-        {
-            cout << "Invalid input try again" << endl;
+            bool validChoice = true;
+
+            if (choice == 'Y' || choice == 'y')
+            {
+                vector<BaseballStatistic> newPlayers = test1;
+                result = newPlayers;
+                choiceTest2 = false;
+                continue;
+            }
+            else if (choice == 'n' || choice == 'N')
+            {
+                choiceTest2 = false;
+                yesOrNo = false;
+                break;
+            }
+            else
+            {
+                validChoice = false;
+                cout << "Input invalid" << endl;
+            }
         }
     }
-
     return 0; // End  of program
 }
 
@@ -213,7 +245,7 @@ void loadFile(vector<BaseballStatistic> &playerList)
         position = line;
 
         BaseballStatistic temp(fname, lname, teamName, jerseyNumber, position, atBat, homeRun, runsBattedIn, bat, thrower, sB, batAvg, year, month, day, opss, eraa); //Adding constructor
-        //Adding object to vector
+        //Adding object to vect
         playerList.push_back(temp);
     }
     in.close();
