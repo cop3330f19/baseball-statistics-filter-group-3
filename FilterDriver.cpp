@@ -1,6 +1,6 @@
 //Name of the file: FilterDriver.cpp
 //Group number and member names: Jeffrey Washington, Shatoria Poole, Roderick Harris
-//Date last edited: 11/5/2019
+//Date last edited: 11/7/2019
 //Purpose of the program: Main program to filter baseball csv file.
 
 #include <iostream>
@@ -11,6 +11,7 @@
 #include <string>
 #include <sstream>
 #include <cstdlib>
+#include <cctype>
 
 #include "BaseballStatistic.h"
 #include "Filter.h"
@@ -32,22 +33,19 @@ void loadFile(vector<BaseballStatistic> &);
 int main()
 {
 
-    //Dummy variables
-
-    string fname, lname, teamName, position;
-    int jerseyNumber, atBat, homeRun, runsBattedIn, sB, year, month, day;
-    char bat, thrower, option;
-    double batAvg, opss, eraa;
-
-    //Creation of objects
+    //Creation of objects and object mutators
     vector<BaseballStatistic> test1;
-
     Filter processor;
-
     string key, filter;
-    //Process
 
-    loadFile(test1);
+    // Process
+
+    cout << "* Welcome to the National League Baseball Statistics Search *" << endl;
+    cout << "*                                                           *" << endl;
+    cout << "* This tool allows you to sort and search National League   *" << endl;
+    cout << "* team statstics per player for 2019.                       *" << endl;
+    cout << "* Use the menus to select your sort/search options          *" << endl;
+    cout << "*************************************************************" << endl;
 
     cout << "******FILTER OPTIONS******" << endl;
     cout << "* T   - Team             *" << endl;
@@ -65,12 +63,14 @@ int main()
 
     do
     {
-        cout << "Enter all filter key pairs you would like to use (enter F when finished): " << endl;
+        cout << "Enter all filter key pairs you would like to use (enter 'F F' when finished): " << endl;
         cin >> filter >> key;
         StringHelper::toUpper(filter);
         if (filter != "F" && filter != "T" && filter != "P" && filter != "B" && filter != "BA" && filter != "H" && filter != "R" && filter != "S" && filter != "O" && filter != "E")
         {
-            cout << "Invalid input! Please select from the filter options or F to end filter options." << endl;
+            cout << "Invalid input! Please select from the filter options or enter"
+                 << "F F"
+                 << "to end filter options." << endl;
         }
         else if (filter != "F" && filter != "f")
         {
@@ -86,6 +86,8 @@ int main()
 
     int input;
     bool inputTest = false;
+
+    char choice;
 
     while (!inputTest)
     {
@@ -127,7 +129,7 @@ int main()
         }
     }
 
-    return 0;
+    return 0; // End  of program
 }
 
 //Loads CSV file into program to allow manipulation of data
@@ -139,28 +141,25 @@ int main()
 
 void loadFile(vector<BaseballStatistic> &playerList)
 {
+    // Input file
     ifstream in;
     in.open("BStats.csv");
     if (!in)
         cout << "File wont open" << endl;
-
+    // Variables
     string fname, lname, teamName, position, line;
     int jerseyNumber, atBat, homeRun, runsBattedIn, sB, year, month, day;
     char bat, thrower;
     double batAvg, opss, eraa;
-
     int cnt;
 
+    //While loop for inputting csv
     while (in.good())
     {
-        //use line string variable to read in value
         getline(in, line, ',');
-        //set read in value to corresponding variable
         teamName = line;
         getline(in, line, ',');
-        //convert the string to an int
         stringstream temporaryLine1(line);
-        //set converted variable to corresponding variable
         temporaryLine1 >> jerseyNumber;
         getline(in, line, ',');
         fname = line;
@@ -176,11 +175,8 @@ void loadFile(vector<BaseballStatistic> &playerList)
         stringstream temporaryLine4(line);
         temporaryLine4 >> day;
         getline(in, line, ',');
-        //create a char variable of the same length of the read in variable
         char p[line.length()];
-        //set the line char variable to the read in variable
         p[0] = line[0];
-        //set the line char variable to the corresponding variable
         bat = p[0];
         getline(in, line, ',');
         p[0] = line[0];
@@ -216,11 +212,9 @@ void loadFile(vector<BaseballStatistic> &playerList)
         getline(in, line);
         position = line;
 
-        BaseballStatistic temp(fname, lname, teamName, jerseyNumber, position, atBat, homeRun, runsBattedIn, bat, thrower, sB, batAvg, year, month, day, opss, eraa);
-        //add that new object to the vector
+        BaseballStatistic temp(fname, lname, teamName, jerseyNumber, position, atBat, homeRun, runsBattedIn, bat, thrower, sB, batAvg, year, month, day, opss, eraa); //Adding constructor
+        //Adding object to vector
         playerList.push_back(temp);
     }
     in.close();
 }
-
-//in >> teamName >> jerseyNumber >> lname >> fname >> year >> month >> day >> bat >> thrower >> atBat >> batAvg >> homeRun >> runsBattedIn >> sB >> opss >> eraa >> position
