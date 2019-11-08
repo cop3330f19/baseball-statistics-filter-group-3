@@ -73,9 +73,7 @@ int main()
             StringHelper::toUpper(filter);
             if (filter != "F" && filter != "T" && filter != "P" && filter != "B" && filter != "BA" && filter != "H" && filter != "R" && filter != "S" && filter != "O" && filter != "E")
             {
-                cout << "Invalid input! Please select from the filter options or enter"
-                     << "F F"
-                     << "to end filter options." << endl;
+                cout << "Invalid input! Please select from the filter options or enter 'F F' to end filter options." << endl;
             }
             else if (filter != "F" && filter != "f")
             {
